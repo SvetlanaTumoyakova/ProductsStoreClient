@@ -15,7 +15,7 @@ function Header() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
                 <a className="navbar-brand" href="#">
-                    Книги
+                    Онлайн магазин
                 </a>
                 <button
                     className="navbar-toggler"
@@ -37,7 +37,7 @@ function Header() {
                             <>
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to="/">
-                                        Список книг
+                                        Список товаров
                                     </NavLink>
                                 </li>
                                 <li className="nav-item ms-auto dropdown">
