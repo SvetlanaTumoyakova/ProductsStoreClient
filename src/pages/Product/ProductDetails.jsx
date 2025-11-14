@@ -1,20 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from "../../context/AuthContext";
 import { ProductContext } from "../../context/ProductContext";
 import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext';
 
 
 function ProductDetails() {
     const [product, setProduct] = useState();
+    const [error, setError] = useState('');
     const { id } = useParams();
     const { fetchProductDetails, loading } = useContext(ProductContext);
+    const { isAuthenticated } = useContext(AuthContext);
+    const { fetchAddCart } = useContext(CartContext);
 
     useEffect(() => {
         async function fetchProduct() {
-            const { data } = await fetchProductDetails(id);
+            const { data, error } = await fetchProductDetails(id);
             console.log(data);
             if (data) {
                 setProduct(data);
+            }
+            if (error) {
+                setError(error);
             }
         }
         fetchProduct();
@@ -22,12 +30,13 @@ function ProductDetails() {
 
     return (
         <div className="product-card">
+            {error && <div className="alert alert-danger">{error}</div>}
             {!product || loading ? (
                 <p>Загрузка...</p>
             ) : (
                 <>
                     <div className="product-category">
-                        <h3 className="product-category">{product.categoryID}</h3>
+                        <p className="product-category m-3">{product.category.title}</p>
                     </div>
                     {product.image && (
                         <img
@@ -42,6 +51,11 @@ function ProductDetails() {
                             {product.price.toLocaleString()} ₽
                         </p>
                     </div>
+                    {isAuthenticated &&
+                        (<button type="button" onClick={() => fetchAddCart(product.id)} className="btn btn-outline-success m-3">
+                            Добавить в корзину
+                        </button>)
+                    }
                 </>
             )}
         </div>

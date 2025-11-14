@@ -15,7 +15,6 @@ function AuthProvider({ children }) {
         if (localStorage.getItem("token")) {
             getUser();
         }
-
     }, []);
 
     const register = async ({ email, password, lastName, firstName, patronymic, address, phone }) => {
@@ -24,7 +23,7 @@ function AuthProvider({ children }) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userName: email, password, lastName, firstName, patronymic, address, phone }),
+            body: JSON.stringify({ userName: email, password, lastName, firstName, patronymic, address, phone })
         });
 
         if (!response.ok) {
@@ -34,7 +33,7 @@ function AuthProvider({ children }) {
 
         const data = await response.json();
         localStorage.setItem("token", data.token);
-        await getProfile();
+        await getUser();
     };
 
     const login = async ({ email, password }) => {
@@ -53,7 +52,7 @@ function AuthProvider({ children }) {
 
         const data = await response.json();
         localStorage.setItem("token", data.token);
-        await getProfile();
+        await getUser();
     };
 
     const getUser = async () => {

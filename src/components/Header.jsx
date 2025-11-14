@@ -40,15 +40,25 @@ function Header() {
                         </li>
                         {isAuthenticated ? (
                             <>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/cart">
+                                        Корзина
+                                    </NavLink>
+                                </li>
                                 <li className="nav-item ms-auto dropdown">
                                     <button
                                         className="btn btn-dark dropdown-toggle"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
                                     >
-                                        {currentUser.username}
+                                        {currentUser.userName}
                                     </button>
                                     <ul className="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark">
+                                        <li>
+                                            <NavLink className="dropdown-item" to="/orders">
+                                                Заказы
+                                            </NavLink>
+                                        </li>
                                         <li>
                                             <button
                                                 onClick={handleLogout}

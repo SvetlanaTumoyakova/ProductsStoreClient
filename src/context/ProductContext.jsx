@@ -8,21 +8,6 @@ function ProductProvider({ children }) {
 
     const apiUrl = "https://localhost:7124/api/product";
 
-    const fetchProducts = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${apiUrl}`, {
-                method: 'GET',
-            });
-            const data = await response.json();
-            setProducts(data);
-        } catch (error) {
-            setError("Ошибка получения продуктов: " + error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const fetchRandomProducts = async () => {
         const result = {}
         try {
@@ -54,6 +39,26 @@ function ProductProvider({ children }) {
             const data = await response.json();
             result.data = data;
         } catch (error) {
+            result.error = "Ошибка получения данных продукта: " + error.message
+        } finally {
+            setLoading(false);
+        }
+        return result;
+    }
+
+    const fetchSearchProducts = async (search) => {
+        const result = {};
+        try {
+            setLoading(true);
+            const response = await fetch(`${apiUrl}/search?q=${search}`, {
+                method: 'GET'
+            });
+            if (!response.ok) {
+                throw new Error("Продукт не найден!");
+            }
+            const data = await response.json();
+            result.data = data;
+        } catch (error) {
             result.error = "Ошибка получения продуктов: " + error.message
         } finally {
             setLoading(false);
@@ -62,7 +67,7 @@ function ProductProvider({ children }) {
     }
 
     return (
-        <ProductContext.Provider value={{ products, loading, error, fetchProducts, fetchRandomProducts, fetchProductDetails }}>
+        <ProductContext.Provider value={{ products, loading, error, fetchRandomProducts, fetchProductDetails, fetchSearchProducts }}>
             {children}
         </ProductContext.Provider>
     );
