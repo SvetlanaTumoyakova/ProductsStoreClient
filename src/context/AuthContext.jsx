@@ -12,7 +12,10 @@ function AuthProvider({ children }) {
     const apiUrl = "https://localhost:7124/api/Auth";
 
     useEffect(() => {
-        getProfile();
+        if (localStorage.getItem("token")) {
+            getUser();
+        }
+
     }, []);
 
     const register = async ({ email, password, lastName, firstName, patronymic, address, phone }) => {
@@ -53,7 +56,7 @@ function AuthProvider({ children }) {
         await getProfile();
     };
 
-    const getProfile = async () => {
+    const getUser = async () => {
         const token = localStorage.getItem("token");
         const response = await fetch(`${apiUrl}/profile`, {
             method: "GET",
@@ -63,6 +66,7 @@ function AuthProvider({ children }) {
         });
 
         if (!response.ok) {
+            localStorage.removeItem("token");
             const errorData = await response.json();
             throw new Error(errorData.message || "Ошибка входа");
         }

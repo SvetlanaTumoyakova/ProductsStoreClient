@@ -33,13 +33,13 @@ function Header() {
                     id="navbarSupportedContent"
                 >
                     <ul className="navbar-nav w-100 mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/">
+                                Список товаров
+                            </NavLink>
+                        </li>
                         {isAuthenticated ? (
                             <>
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/">
-                                        Список товаров
-                                    </NavLink>
-                                </li>
                                 <li className="nav-item ms-auto dropdown">
                                     <button
                                         className="btn btn-dark dropdown-toggle"
