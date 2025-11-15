@@ -28,7 +28,6 @@ function Header() {
         fetchCategories();
     }, []);
 
-    console.log(categories);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="dropdown m-3">

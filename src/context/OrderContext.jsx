@@ -12,7 +12,6 @@ function OrderProvider({ children }) {
 
     useEffect(() => {
         if (isAuthenticated) {
-            console.log(orders);
             fetchOrder();
         }
     }, [isAuthenticated]);

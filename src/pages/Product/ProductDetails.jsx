@@ -17,7 +17,6 @@ function ProductDetails() {
     useEffect(() => {
         async function fetchProduct() {
             const { data, error } = await fetchProductDetails(id);
-            console.log(data);
             if (data) {
                 setProduct(data);
             }

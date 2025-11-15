@@ -7,7 +7,6 @@ import ProductList from "../../components/ProductList";
 function Category() {
     const { id } = useParams();
 
-    console.log(id);
     const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
     const [search, setSearch] = useState("");

@@ -102,7 +102,6 @@ function ProductProvider({ children }) {
         } catch (error) {
             result.error = "Ошибка получения продуктов: " + error.message
         }
-        console.log('res', result)
         return result;
     };
 
