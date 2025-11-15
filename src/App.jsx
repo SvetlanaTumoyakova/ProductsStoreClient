@@ -10,6 +10,7 @@ import ProductDetails from "./pages/Product/ProductDetails";
 import Cart from "./pages/Cart/Cart";
 import Confirm from "./pages/Order/Confirm";
 import Orders from "./pages/Order/OrderList";
+import Category from "./pages/Category/Category";
 
 import Header from "./components/Header";
 import { CartProvider } from "./context/CartContext";
@@ -37,6 +38,13 @@ function App() {
                                             <ProductDetails />
                                         }
                                     />
+                                    <Route
+                                        path="/category/:id"
+                                        element={
+                                            <Category />
+                                        }
+                                    />
+
 
                                     <Route
                                         path="/cart"

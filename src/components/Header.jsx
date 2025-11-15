@@ -1,18 +1,48 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import { ProductContext } from "../context/ProductContext";
 
 function Header() {
     const { currentUser, isAuthenticated, logout } = useContext(AuthContext);
+    const { fetchProductsCategories } = useContext(ProductContext);
     const navigate = useNavigate();
+    const [categories, setCategories] = useState([]);
 
     const handleLogout = () => {
         logout();
         navigate("/login");
     };
 
+    useEffect(() => {
+        async function fetchCategories() {
+            const { data, error } = await fetchProductsCategories();
+            if (data) {
+                setCategories(data);
+            }
+            if (error) {
+                setError(error);
+            }
+        }
+
+        fetchCategories();
+    }, []);
+
+    console.log(categories);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="dropdown m-3">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuCategory" data-bs-toggle="dropdown" aria-expanded="false">
+                    Категории
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {categories.map(category => (
+                        <li key={category.id}>
+                            <Link className="dropdown-item text-decoration-none" to={`/category/${category.id}`}>{category.title}</Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
             <div className="container">
                 <a className="navbar-brand" href="#">
                     Онлайн магазин
