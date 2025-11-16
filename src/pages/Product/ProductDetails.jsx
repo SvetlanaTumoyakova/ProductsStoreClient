@@ -14,6 +14,8 @@ function ProductDetails() {
     const { isAuthenticated } = useContext(AuthContext);
     const { fetchAddCart } = useContext(CartContext);
 
+    const apiUrl = "https://localhost:7124";
+
     useEffect(() => {
         async function fetchProduct() {
             const { data, error } = await fetchProductDetails(id);
@@ -37,15 +39,23 @@ function ProductDetails() {
                     <div className="product-category">
                         <p className="product-category m-3">{product.category.title}</p>
                     </div>
-                    {product.image && (
+                    {product.imageUrl && (
                         <img
-                            src={product.image}
+                            src={apiUrl + "/" + product.imageUrl}
                             alt={product.name}
-                            className="product-image"
+                            className="product-image mt-3"
                         />
                     )}
                     <div className="product-info">
                         <h3 className="product-name">{product.name}</h3>
+
+                        {product.productAttributes.map((attribute) => (
+                            <div className="flex align-content-center mb-3" key={attribute.id}>
+                                <span className="attribute-title flex-grow-1 me-3">{attribute.title}</span>
+                                <span className="attribute-content me-3"> {attribute.content}</span>
+                            </div>
+                        ))}
+
                         <p className="product-price">
                             {product.price.toLocaleString()} ₽
                         </p>
@@ -56,8 +66,9 @@ function ProductDetails() {
                         </button>)
                     }
                 </>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
 
