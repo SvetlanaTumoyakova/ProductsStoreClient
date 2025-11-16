@@ -63,15 +63,20 @@ function Header() {
                 >
                     <ul className="navbar-nav w-100 mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/">
+                            <NavLink className="nav-link me-5" to="/">
                                 Список товаров
                             </NavLink>
                         </li>
                         {isAuthenticated ? (
                             <>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to="/cart">
+                                    <NavLink className="nav-link ms-auto" to="/cart">
                                         Корзина
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink className="nav-link" to="/orders">
+                                        Заказы
                                     </NavLink>
                                 </li>
                                 <li className="nav-item ms-auto dropdown">
@@ -83,11 +88,6 @@ function Header() {
                                         {currentUser.userName}
                                     </button>
                                     <ul className="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark">
-                                        <li>
-                                            <NavLink className="dropdown-item" to="/orders">
-                                                Заказы
-                                            </NavLink>
-                                        </li>
                                         <li>
                                             <button
                                                 onClick={handleLogout}

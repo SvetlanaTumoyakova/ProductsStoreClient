@@ -24,10 +24,10 @@ function Cart() {
                             </button>
                         </div>
                     ))}
-                    <button type="button" onClick={() => fetchClearCart()} className="btn btn-outline-success mt-3">
+                    <button type="button" onClick={() => fetchClearCart()} className="btn btn-outline-success mt-3 me-3">
                         Очистить корзину
                     </button>
-                    <Link to={`/confirm`} className="text-decoration-none">Оформить заказ</Link>
+                    <Link to={`/confirm`} className="btn btn-primary mt-3">Оформить заказ</Link>
                 </>
             ) : (
                 <p>Нет добавленных товаров.</p>
